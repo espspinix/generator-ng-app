@@ -1,24 +1,23 @@
 {
-    "name": "generator-jw-ng-gen",
+    "name": "generator-ng-app",
     "version": "1.0.9",
     "description": "Yeoman Angular Generator based on Angular Best Practices(Angular Style Guide).",
     "keywords": [
     "yeoman-generator",
     "angular"
   ],
-    "homepage": "https://github.com/jonathanwax/generator-jw-ng-gen",
+    "homepage": "https://github.com/espspinix/generator-ng-app",
     "bugs": {
-        "url": "https://github.com/jonathanwax/generator-jw-ng-gen/issues"
+        "url": "https://github.com/espspinix/generator-ng-app/issues"
     },
     "author": {
-        "name": "Jonathan Wax",
-        "email": "",
-        "url": "https://www.jonathanwax.com"
+        "name": "Philipp Pajak",
+        "email": "espspinix@gmail.com"
     },
     "main": "app/index.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/jonathanwax/generator-jw-ng-gen.git"
+        "url": "https://github.com/espspinix/generator-ng-app.git"
     },
     "scripts": {
         "test": "mocha"
