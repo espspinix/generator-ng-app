@@ -32,7 +32,7 @@ TemplateGenerator.prototype.askFor = function askFor() {
     ];
 
     cgUtils.addNamePrompt(this, prompts, 'template');
-    this.prompt(prompts, function (props) {
+    this.prompt(prompts, function(props) {
         if (props.name) {
             this.name = props.name;
         }
@@ -49,7 +49,7 @@ TemplateGenerator.prototype.files = function files() {
     cgUtils.processTemplates(this.name, this.dir, 'template', this, null, null, this.module);
 
     if (this.route && this.route.length > 0) {
-        var templateUrl = this.dir + this.name + '.html';
+        var templateUrl = this.dir + this.name + '.template' +  '.html';
         cgUtils.injectRoute(this.module.file, this.config.get('uirouter'), this.name, this.route, templateUrl, this);
     }
 

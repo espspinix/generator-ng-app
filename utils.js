@@ -40,8 +40,8 @@ exports.processTemplates = function(name, dir, type, that, defaultDir, configNam
     that.className = name + '_' + type;
     that.fileName = name + '.' + type;
 
-    that.author = that.config.get("author") || '-';
-    that.copyright = that.config.get("copyright") || '-';
+    that.author = that.config.get('author') || '-';
+    that.copyright = that.config.get('copyright') || '-';
 
     var templateDirectory = path.join(path.dirname(that.resolved), defaultDir);
     if (that.config.get(configName)) {
@@ -124,11 +124,19 @@ exports.injectRoute = function(moduleFile, uirouter, name, route, routeUrl, that
     routeUrl = routeUrl.replace(/\\/g, '/');
 
     if (uirouter) {
-        var code = '$stateProvider.state(\'' + name + '\', {\n            url: \'' + route + '\',\n            templateUrl: \'' + routeUrl + '\'\n\t\t});';
-        exports.addToFile(moduleFile, code, exports.STATE_MARKER);
+        var code = '$stateProvider.state(\'' + name + '\', {' + '\n' +
+                   '            url: \'' + route + '\',' + '\n' +
+                   '            templateUrl: \'' + routeUrl + '\'' + '\n' +
+                   '\t\t});';
+        var marker = exports.STATE_MARKER;
     } else {
-        exports.addToFile(moduleFile, '$routeProvider.when(\'' + route + '\',{templateUrl: \'' + routeUrl + '\'});', exports.ROUTE_MARKER);
+        var code = '$routeProvider.when(\'' + route + '\', {' + '\n' +
+                   '            templateUrl: \'' + routeUrl + '\'' + '\n' +
+                   '});';
+        var marker = exports.ROUTE_MARKER;
+
     }
+    exports.addToFile(moduleFile, code, marker);
 
     that.log.writeln(chalk.green(' updating') + ' %s', path.basename(moduleFile));
 
