@@ -77,33 +77,33 @@ AppGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
-//AppGenerator.prototype.askForUiRouter = function askFor() {
-//    var cb = this.async();
-//
-//    var prompts = [{
-//        name: 'router',
-//        type: 'list',
-//        message: 'Which router would you like to use?',
-//        default: 1,
-//        choices: ['Standard Angular Router(ngRoute)', 'Angular UI Router(ui.router)']
-//    }];
-//
-//    this.prompt(prompts, function (props) {
-//        if (props.router === 'Angular UI Router(ui.router)') {
-//            this.uirouter = true;
-//            this.routerJs = 'bower_components/angular-ui-router/release/angular-ui-router.js';
-//            this.routerModuleName = 'ui.router';
-//            this.routerViewDirective = 'ui-view';
-//        } else {
-//            this.uirouter = false;
-//            this.routerJs = 'bower_components/angular-route/angular-route.js';
-//            this.routerModuleName = 'ngRoute';
-//            this.routerViewDirective = 'ng-view';
-//        }
-//        this.config.set('uirouter', this.uirouter);
-//        cb();
-//    }.bind(this));
-//};
+AppGenerator.prototype.askForUiRouter = function askFor() {
+   var cb = this.async();
+
+   var prompts = [{
+       name: 'router',
+       type: 'list',
+       message: 'Which router would you like to use?',
+       default: 1,
+       choices: ['Standard Angular Router(ngRoute)', 'Angular UI Router(ui.router)']
+   }];
+
+   this.prompt(prompts, function (props) {
+       if (props.router === 'Angular UI Router(ui.router)') {
+           this.uirouter = true;
+           this.routerJs = 'bower_components/angular-ui-router/release/angular-ui-router.js';
+           this.routerModuleName = 'ui.router';
+           this.routerViewDirective = 'ui-view';
+       } else {
+           this.uirouter = false;
+           this.routerJs = 'bower_components/angular-route/angular-route.js';
+           this.routerModuleName = 'ngRoute';
+           this.routerViewDirective = 'ng-view';
+       }
+       this.config.set('uirouter', this.uirouter);
+       cb();
+   }.bind(this));
+};
 
 AppGenerator.prototype.app = function app() {
     this.directory('skeleton/', './');
