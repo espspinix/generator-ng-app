@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('common', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'angular-loading-bar']);
+        .module('common', ['ui.bootstrap', 'ui.utils', '<%= routerModuleName %>', 'ngAnimate', 'angular-loading-bar']);
 
     angular
         .module('common')

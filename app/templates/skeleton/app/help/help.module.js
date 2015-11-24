@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    angular.module('help', []);
+    angular
+        .module('help', []);
 
     angular
         .module('help')
