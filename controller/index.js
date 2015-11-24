@@ -11,10 +11,8 @@ _.str = require('underscore.string');
 _.mixin(_.str.exports());
 
 var ControllerGenerator = module.exports = function ControllerGenerator(args, options, config) {
-
     cgUtils.getNameArg(this, args);
     yeoman.generators.Base.apply(this, arguments);
-
 };
 
 util.inherits(ControllerGenerator, yeoman.generators.Base);
@@ -24,7 +22,7 @@ ControllerGenerator.prototype.askFor = function askFor() {
 
     var prompts = [];
     cgUtils.addNamePrompt(this, prompts, 'controller');
-    this.prompt(prompts, function (props) {
+    this.prompt(prompts, function(props) {
         if (props.name) {
             this.name = props.name;
         }
@@ -33,7 +31,5 @@ ControllerGenerator.prototype.askFor = function askFor() {
 };
 
 ControllerGenerator.prototype.files = function files() {
-
     cgUtils.processTemplates(this.name, this.dir, 'controller', this, null, null, this.module);
-
 };
