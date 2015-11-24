@@ -1,23 +1,20 @@
-(function () {
+(function() {
     'use strict';
 
-    /* JAVASCRIPT */
-
     /**
-     * <%= _.classify(name) %> Object/function
+     * This is the <%= _.classify(name) %> directive
+     *
+     * @author: <%= author %>
+     * @copyright: <%= copyright %>
      */
-    function <%= _.classify(name) %> () {
-
-        /***************** PRIVATE *******************/
-
+    function <%= _.classify(name) %>() {
         /**
          * Directives link function
          */
-        function _link(scope, iElem, iAttrs, controllers) {
+        function link(scope, element, attr, controllers) {
             // add logic here
         }
 
-        /****************** PUBLIC *******************/
         var directive = {
             restrict: 'E',
             replace: true,
@@ -25,16 +22,13 @@
 
             },
             templateUrl: '<%= htmlPath %>',
-            link: _link
+            link: link
         };
 
         return directive;
-
     }
 
-    /* ANGULAR */
     angular
         .module('<%= appname %>')
         .directive('<%= _.camelize(name) %>', <%= _.classify(name) %> );
-
 })();

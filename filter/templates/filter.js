@@ -1,27 +1,19 @@
-(function () {
+(function() {
     'use strict';
 
-    /* JAVASCRIPT */
-
     /**
-     * <%= _.classify(name) %> Object/function
+     * This is the <%= _.classify(name) %> filter
+     *
+     * @author: <%= author %>
+     * @copyright: <%= copyright %>
      */
-    function <%= _.classify(name) %> () {
-
-        /***************** PRIVATE *******************/
-
-
-        /****************** PUBLIC *******************/
-        //TODO: Implement your filter logic here
+    function <%= _.classify(name) %>() {
         return function (input, arg) {
-            return 'filter';
+            return input;
         };
-
     }
 
-    /* ANGULAR */
     angular
         .module('<%= appname %>')
-        .filter('<%= _.camelize(name) %>', <%= _.classify(name) %> );
-
+        .filter('<%= _.camelize(name) %>', <%= _.classify(name) %>);
 })();

@@ -1,8 +1,7 @@
-(function () {
+(function() {
     'use strict';
 
-    describe('<%= _.classify(className) %>', function () {
-
+    describe('<%= _.classify(className) %>', function() {
         var scope, ctrl;
 
         beforeEach(function () {
@@ -17,12 +16,8 @@
         });
 
         it('should ...', function () {
-
             //TODO: Implement your controller spec logic here
             //expect(ctrl.doSomething()).toEqual('something');
-
         });
-
     });
-
 })();

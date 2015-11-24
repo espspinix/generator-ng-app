@@ -1,17 +1,20 @@
-(function () {
+(function() {
     'use strict';
-
-    // CREATE module
+    
+    /**
+     * This is the <%= _.camelize(name) %> module
+     *
+     * @author: <%= author %>
+     * @copyright: <%= copyright %>
+     */
     angular
         .module('<%= _.camelize(name) %>', []);
 
-
-    // Module's CONFIG
     <%
     if (!uirouter) { %>
         angular
             .module('<%= _.camelize(name) %>')
-            .config(function ($routeProvider) {
+            .config(function($routeProvider) {
 
                 /* Add New Routes Above */
 
@@ -20,11 +23,10 @@
     if (uirouter) { %>
         angular
             .module('<%= _.camelize(name) %>')
-            .config(function ($stateProvider) {
+            .config(function($stateProvider) {
 
                 /* Add New States Above */
 
             }); <%
     } %>
-
 })();

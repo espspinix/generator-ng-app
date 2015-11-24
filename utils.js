@@ -6,14 +6,13 @@ _.str = require('underscore.string');
 _.mixin(_.str.exports());
 var ngParseModule = require('ng-parse-module');
 
+exports.JS_MARKER = '<!-- Add New Component JS Above -->';
+exports.LESS_MARKER = '/* Add Component LESS Above */';
 
-exports.JS_MARKER = "<!-- Add New Component JS Above -->";
-exports.LESS_MARKER = "/* Add Component LESS Above */";
+exports.ROUTE_MARKER = '/* Add New Routes Above */';
+exports.STATE_MARKER = '/* Add New States Above */';
 
-exports.ROUTE_MARKER = "/* Add New Routes Above */";
-exports.STATE_MARKER = "/* Add New States Above */";
-
-exports.addToFile = function (filename, lineToAdd, beforeMarker) {
+exports.addToFile = function(filename, lineToAdd, beforeMarker) {
     try {
         var fullPath = path.resolve(process.cwd(), filename);
         var fileSrc = fs.readFileSync(fullPath, 'utf8');
@@ -21,7 +20,7 @@ exports.addToFile = function (filename, lineToAdd, beforeMarker) {
         var indexOf = fileSrc.indexOf(beforeMarker);
         var lineStart = fileSrc.substring(0, indexOf).lastIndexOf('\n') + 1;
         var indent = fileSrc.substring(lineStart, indexOf);
-        fileSrc = fileSrc.substring(0, indexOf) + lineToAdd + "\n" + indent + fileSrc.substring(indexOf);
+        fileSrc = fileSrc.substring(0, indexOf) + lineToAdd + '\n' + indent + fileSrc.substring(indexOf);
 
         fs.writeFileSync(fullPath, fileSrc);
     } catch (e) {
@@ -29,10 +28,10 @@ exports.addToFile = function (filename, lineToAdd, beforeMarker) {
     }
 };
 
-exports.processTemplates = function (name, dir, type, that, defaultDir, configName, module) {
+exports.processTemplates = function(name, dir, type, that, defaultDir, configName, module) {
 
     if (!defaultDir) {
-        defaultDir = 'templates'
+        defaultDir = 'templates';
     }
     if (!configName) {
         configName = type + 'Templates';
@@ -41,6 +40,8 @@ exports.processTemplates = function (name, dir, type, that, defaultDir, configNa
     that.className = name + '_' + type;
     that.fileName = name + '.' + type;
 
+    that.author = that.config.get("author") || '-';
+    that.copyright = that.config.get("copyright") || '-';
 
     var templateDirectory = path.join(path.dirname(that.resolved), defaultDir);
     if (that.config.get(configName)) {
@@ -48,10 +49,10 @@ exports.processTemplates = function (name, dir, type, that, defaultDir, configNa
     }
 
     _.chain(fs.readdirSync(templateDirectory))
-        .filter(function (template) {
+        .filter(function(template) {
             return template[0] !== '.';
         })
-        .each(function (template) {
+        .each(function(template) {
             var customTemplateName = template.replace(type, that.fileName);
             var templateFile = path.join(templateDirectory, template);
 
@@ -71,7 +72,7 @@ exports.processTemplates = function (name, dir, type, that, defaultDir, configNa
         });
 };
 
-exports.inject = function (filename, that, module) {
+exports.inject = function(filename, that, module) {
     //special case to skip unit tests
     if (_(filename).endsWith('-spec.js') ||
         _(filename).endsWith('_spec.js') ||
@@ -111,7 +112,7 @@ exports.inject = function (filename, that, module) {
     }
 };
 
-exports.injectRoute = function (moduleFile, uirouter, name, route, routeUrl, that) {
+exports.injectRoute = function(moduleFile, uirouter, name, route, routeUrl, that) {
 
     //Added by Tapas to add app folder in place
     if (routeUrl.indexOf('app\\') > -1) {
@@ -133,7 +134,7 @@ exports.injectRoute = function (moduleFile, uirouter, name, route, routeUrl, tha
 
 };
 
-exports.getParentModule = function (dir) {
+exports.getParentModule = function(dir) {
     //starting this dir, find the first module and return parsed results
     if (fs.existsSync(dir)) {
         var files = fs.readdirSync(dir);
@@ -156,7 +157,7 @@ exports.getParentModule = function (dir) {
     return exports.getParentModule(path.join(dir, '..'));
 };
 
-exports.askForModule = function (type, that, cb) {
+exports.askForModule = function(type, that, cb) {
 
     var modules = that.config.get('modules');
     var mainModule = ngParseModule.parse('app/app.js');
@@ -181,7 +182,7 @@ exports.askForModule = function (type, that, cb) {
         }
     ];
 
-    that.prompt(prompts, function (props) {
+    that.prompt(prompts, function(props) {
 
         var i = choices.indexOf(props.module);
 
@@ -192,7 +193,7 @@ exports.askForModule = function (type, that, cb) {
         }
 
         // handle path correctly - cross platform
-        fileName = fileName.replace(/\\/g,"/");
+        fileName = fileName.replace(/\\/g,'/');
 
         var module = ngParseModule.parse(fileName);
 
@@ -201,7 +202,7 @@ exports.askForModule = function (type, that, cb) {
 
 };
 
-exports.askForDir = function (type, that, module, ownDir, cb) {
+exports.askForDir = function(type, that, module, ownDir, cb) {
 
     that.module = module;
     that.appname = module.name;
@@ -225,12 +226,12 @@ exports.askForDir = function (type, that, module, ownDir, cb) {
             name: 'dir',
             message: 'Where would you like to create the ' + type + ' files?',
             default: defaultDir,
-            validate: function (dir) {
+            validate: function(dir) {
                 if (!module.primary) {
                     //ensure dir is in module dir or subdir of it
                     dir = path.resolve(dir);
                     if (path.relative(that.dir, dir).substring(0, 2) === '..') {
-                        return 'Files must be placed inside the module directory or a subdirectory of the module.'
+                        return 'Files must be placed inside the module directory or a subdirectory of the module.';
                     }
                 }
                 return true;
@@ -238,7 +239,7 @@ exports.askForDir = function (type, that, module, ownDir, cb) {
         }
     ];
 
-    var dirPromptCallback = function (props) {
+    var dirPromptCallback = function(props) {
 
         that.dir = path.join(props.dir, '/');
         var dirToCreate = that.dir;
@@ -251,7 +252,7 @@ exports.askForDir = function (type, that, module, ownDir, cb) {
                 name: 'isConfirmed',
                 type: 'confirm',
                 message: chalk.cyan(dirToCreate) + ' does not exist.  Create it?'
-            }], function (props) {
+            }], function(props) {
                 if (props.isConfirmed) {
                     cb();
                 } else {
@@ -264,7 +265,7 @@ exports.askForDir = function (type, that, module, ownDir, cb) {
                 name: 'isConfirmed',
                 type: 'confirm',
                 message: chalk.cyan(that.dir) + ' already exists.  Components of this type contain multiple files and are typically put inside directories of their own.  Continue?'
-            }], function (props) {
+            }], function(props) {
                 if (props.isConfirmed) {
                     cb();
                 } else {
@@ -281,26 +282,26 @@ exports.askForDir = function (type, that, module, ownDir, cb) {
 
 };
 
-exports.askForModuleAndDir = function (type, that, ownDir, cb) {
-    exports.askForModule(type, that, function (module) {
+exports.askForModuleAndDir = function(type, that, ownDir, cb) {
+    exports.askForModule(type, that, function(module) {
         exports.askForDir(type, that, module, ownDir, cb);
     });
 };
 
-exports.getNameArg = function (that, args) {
+exports.getNameArg = function(that, args) {
     if (args.length > 0) {
         that.name = args[0];
     }
 };
 
-exports.addNamePrompt = function (that, prompts, type) {
+exports.addNamePrompt = function(that, prompts, type) {
     if (!that.name) {
         prompts.splice(0, 0, {
             name: 'name',
             message: 'Enter a name for the ' + type + '.',
-            validate: function (input) {
+            validate: function(input) {
                 return true;
             }
         });
     }
-}
+};

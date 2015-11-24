@@ -1,31 +1,19 @@
-(function () {
+(function() {
     'use strict';
 
-    /* JAVASCRIPT */
-
     /**
-     * <%= _.classify(className) %> Object/function
+     * This is the <%= _.classify(className) %> controller
+     *
+     * @author: <%= author %>
+     * @copyright: <%= copyright %>
      */
-    function <%= _.classify(className) %> () {
-
-        // vm (view-model) is the object we bind to (this controller).
+    function <%= _.classify(className) %>() {
         var vm = this;
 
-        /***************** PRIVATE *******************/
-        var _model = {
-            name: ''
-        };
-
-        // init
-        _model.name = '<%= _.classify(className) %>';
-
-        /****************** PUBLIC *******************/
-        vm.model = _model;
-
+        vm.model = {};
     }
 
     angular
         .module('<%= appname %>')
-        .controller('<%= _.camelize(className) %>', <%= _.classify(className) %> );
-
+        .controller('<%= _.camelize(className) %>', <%= _.classify(className) %>);
 })();
