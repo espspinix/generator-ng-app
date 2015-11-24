@@ -1,24 +1,34 @@
-(function () {
+(function() {
     'use strict';
 
-    angular.module('<%= _.camelize(appname) %>', ['common', 'shell', 'home', 'help']);
+    /**
+     * This is the main app module for <%= _.camelize(appname) %>
+     *
+     * @author: <%= author %>
+     * @copyright: <%= copyright %>
+     */
+    angular.module('<%= _.camelize(appname) %>', ['<%= routerModuleName %>', 'common', 'shell', 'home', 'help']);
 
-    // CONFIG: App (module)
     angular
-        .module('<%= _.camelize(appname) %>')
-        .config(function ($stateProvider, $urlRouterProvider) {
+        .module('<%= _.camelize(appname) %>') <% 
+    if (uirouter) { %>
+        .config(function($stateProvider, $urlRouterProvider) {
 
             /* Add New States Above */
-            $urlRouterProvider.otherwise('');
+            $urlRouterProvider.otherwise('/home');
+        }); <% 
+    } %> <% if (!uirouter) { %>
+        .config(function($routeProvider) {
 
-        });
+            /* Add New Routes Above */
+            $routeProvider.otherwise({redirectTo:'/home'});
+    }); <% 
+    } %>
 
-    // RUN: App (module)
     angular
         .module('<%= _.camelize(appname) %>')
-        .run(function ($rootScope) {
-
-            $rootScope.safeApply = function (fn) {
+        .run(function($rootScope) {
+            $rootScope.safeApply = function(fn) {
                 var phase = $rootScope.$$phase;
                 if (phase === '$apply' || phase === '$digest') {
                     if (fn && (typeof (fn) === 'function')) {
@@ -28,7 +38,5 @@
                     this.$apply(fn);
                 }
             };
-
         });
-
 })();
