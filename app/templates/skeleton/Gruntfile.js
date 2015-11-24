@@ -243,6 +243,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', ['jshint', 'clean:before', 'less', 'dom_munger', 'ngtemplates', 'cssmin', 'concat', 'ngAnnotate', 'uglify', 'copy', 'htmlmin', 'clean:after']);
     grunt.registerTask('run', ['dom_munger:read', 'jshint', 'connect', 'watch']);
+    grunt.registerTask('serve', ['run']);
     grunt.registerTask('test', ['dom_munger:read', 'karma']);
     grunt.registerTask('e2e', ['dom_munger:read', 'protractor']);
 
