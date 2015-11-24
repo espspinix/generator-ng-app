@@ -4,6 +4,7 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var cgUtils = require('../utils.js');
+var yosay = require('yosay');
 
 var AppGenerator = module.exports = function AppGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
@@ -52,11 +53,16 @@ var AppGenerator = module.exports = function AppGenerator(args, options, config)
         this.config.set('modules', defaultModules);
         this.config.save();
         this.installDependencies({
-            skipInstall: options['skip-install']
+            skipInstall: options['skip-install'],
+            callback: function() {
+              console.log(yosay('We are ready..' + '\n' + 'Happy coding! :)'));      
+            }
         });
     });
 
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+
+    console.log(yosay('Welcome to the ng-app generator!'));
 };
 
 util.inherits(AppGenerator, yeoman.generators.Base);
