@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html ng-app="<%= _.camelize(appname) %>">
+<html <% if(applang) { %>lang="<%= applang %>"<% } %> ng-app="<%= _.camelize(appname) %>">
 
 <head>
-    <title>My App</title>
+    <title><%= apptitle %></title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- SEO -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
     <link href="app.less" type="text/css" rel="stylesheet/less" />
 </head>
 
 <body>
-
     <div ui-view>
         <!-- Content loads here -->
     </div>
@@ -24,7 +31,7 @@
     <script src="../bower_components/underscore/underscore.js"></script>
     <script src="../bower_components/moment/moment.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
-    <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../<%= routerJs %>"></script>
     <script src="../bower_components/angular-animate/angular-animate.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.js"></script>
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -50,11 +57,6 @@
     <script src="help/controllers/help-controller.js"></script>
     <script src="help/services/help-service.js"></script>
 
-
-
     <!-- Add New Component JS Above -->
-
-
 </body>
-
 </html>

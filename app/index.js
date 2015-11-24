@@ -72,7 +72,36 @@ AppGenerator.prototype.askFor = function askFor() {
 
     this.prompt(prompts, function (props) {
         this.appname = props.appname;
-        this.config.set('uirouter', true);
+        cb();
+    }.bind(this));
+};
+
+AppGenerator.prototype.askForAppTitle = function askFor() {
+    var cb = this.async();
+
+    var prompts = [{
+        name: 'apptitle',
+        message: 'What would you like the angular application title to be?',
+        default: this.appname
+    }];
+
+    this.prompt(prompts, function (props) {
+        this.apptitle = props.apptitle;
+        cb();
+    }.bind(this));
+};
+
+AppGenerator.prototype.askForAppLang = function askFor() {
+    var cb = this.async();
+
+    var prompts = [{
+        name: 'applang',
+        message: 'What would you like the application locale to be? (leave empty for none)',
+        default: ""
+    }];
+
+    this.prompt(prompts, function (props) {
+        this.applang = props.applang;
         cb();
     }.bind(this));
 };
@@ -106,5 +135,8 @@ AppGenerator.prototype.askForUiRouter = function askFor() {
 };
 
 AppGenerator.prototype.app = function app() {
+    this.author = this.config.get('author');
+    this.copyright = this.config.get('copyright');
+
     this.directory('skeleton/', './');
 };
