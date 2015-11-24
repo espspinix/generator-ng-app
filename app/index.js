@@ -9,6 +9,8 @@ var AppGenerator = module.exports = function AppGenerator(args, options, config)
     yeoman.generators.Base.apply(this, arguments);
 
     this.on('end', function () {
+        this.config.set('author', 'Philipp Pajak');
+        this.config.set('copyright', 'Triphop UG');
         this.config.set('templateDirectory', 'templates/');
         this.config.set('directiveDirectory', 'directives/');
         this.config.set('filterDirectory', 'filters/');
