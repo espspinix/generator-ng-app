@@ -5,22 +5,25 @@
         .module('home', []);
 
     angular
-        .module('home')
-        .config(function ($stateProvider) {
-
+        .module('home') <% 
+    if (!uirouter) { %>
+        .config(function($routeProvider) {
+            $routeProvider.when('/home', {
+                templateUrl: 'home/templates/home-template.html',
+                controller: 'homeController',
+                controllerAs: 'vm'
+            });
+            /* Add New Routes Above */
+        });<% 
+    } %><% if (uirouter) { %>
+        .config(function($stateProvider) {
             $stateProvider.state('shell.home', {
                 url: '/home',
-                views: {
-                    'contentView': {
-                        templateUrl: 'home/templates/home-template.html',
-                        controller: 'homeController',
-                        controllerAs: 'vm'
-                    }
-                }
-
+                templateUrl: 'home/templates/home-template.html',
+                controller: 'homeController',
+                controllerAs: 'vm'
             });
             /* Add New States Above */
-
-        });
-
+        });<% 
+    } %>
 })();

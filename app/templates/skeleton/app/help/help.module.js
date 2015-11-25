@@ -5,9 +5,18 @@
         .module('help', []);
 
     angular
-        .module('help')
-        .config(function ($stateProvider) {
-
+        .module('help') <% 
+    if (!uirouter) { %>
+        .config(function($routeProvider) {
+            $routeProvider.when('/help', {
+                templateUrl: 'help/templates/help-template.html',
+                controller: 'helpController',
+                controllerAs: 'vm'
+            });
+            /* Add New Routes Above */
+        });<% 
+    } %><% if (uirouter) { %>
+        .config(function($stateProvider) {
             $stateProvider.state('shell.help', {
                 url: '/help',
                 views: {
@@ -19,7 +28,6 @@
                 }
             });
             /* Add New States Above */
-
-        });
-
+        });<% 
+    } %>
 })();

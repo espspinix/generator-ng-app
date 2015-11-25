@@ -5,11 +5,16 @@
         .module('common', ['ui.bootstrap', 'ui.utils', '<%= routerModuleName %>', 'ngAnimate', 'angular-loading-bar']);
 
     angular
-        .module('common')
-        .config(function ($stateProvider) {
+        .module('common') <% 
+    if (!uirouter) { %>
+        .config(function($routeProvider) {
 
-            /* Add New States Above */
+            /* Add New Routes Above */
+        });<% 
+    } %><% if (uirouter) { %>
+        .config(function($stateProvider) {
 
-        });
-
+        	/* Add New States Above */
+    	});<% 
+    } %>
 })();

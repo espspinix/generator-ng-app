@@ -5,20 +5,25 @@
         .module('shell', []);
 
     angular
-        .module('shell')
-        .config(function ($stateProvider) {
-
+        .module('shell') <% 
+    if (!uirouter) { %>
+        .config(function($routeProvider) {
+            $routeProvider.when('/', {
+                templateUrl: 'shell/templates/shell.html',
+                controller: 'shellController',
+                controllerAs: 'vm'
+            });
+            /* Add New Routes Above */
+        });<%
+    } %><% if (uirouter) { %>
+        .config(function($stateProvider) {
             $stateProvider.state('shell', {
                 url: '',
-                views: {
-                    '': {
-                        templateUrl: 'shell/templates/shell.html',
-                        controller: 'shellController',
-                        controllerAs: 'vm'
-                    }
-                }
+                templateUrl: 'shell/templates/shell.html',
+                controller: 'shellController',
+                controllerAs: 'vm'
             });
             /* Add New States Above */
-
-        });
+        });<%
+    } %>
 })();
