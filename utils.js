@@ -112,7 +112,7 @@ exports.inject = function(filename, that, module) {
     }
 };
 
-exports.injectRoute = function(moduleFile, uirouter, name, route, routeUrl, that) {
+exports.injectRoute = function(moduleFile, uirouter, name, route, routeUrl, controller, that) {
 
     //Added by Tapas to add app folder in place
     if (routeUrl.indexOf('app\\') > -1) {
@@ -123,18 +123,30 @@ exports.injectRoute = function(moduleFile, uirouter, name, route, routeUrl, that
     }
     routeUrl = routeUrl.replace(/\\/g, '/');
 
+    var tab     = '    ';
+    var newLine = '\n';
+
+    if(controller) {
+        var controllerName = _.camelize(controller + '_controller');
+    }
+
     if (uirouter) {
-        var code = '$stateProvider.state(\'' + name + '\', {' + '\n' +
-                   '            url: \'' + route + '\',' + '\n' +
-                   '            templateUrl: \'' + routeUrl + '\'' + '\n' +
-                   '\t\t});';
+        var code = '$stateProvider.state(\'' + name + '\', {' + newLine +
+                    tab + tab + tab + tab + tab + 'url: \'' + route + '\',' + newLine +
+                    tab + tab + tab + tab + tab + 'templateUrl: \'' + routeUrl + '\',' + newLine +
+                    (controllerName ? 
+                    tab + tab + tab + tab + tab + 'controller: \'' + controllerName + '\',' + newLine + 
+                    tab + tab + tab + tab + tab + 'controllerAs: \'vm\',' + newLine : '') + 
+                    tab + tab + tab + tab + '});';
         var marker = exports.STATE_MARKER;
     } else {
-        var code = '$routeProvider.when(\'' + route + '\', {' + '\n' +
-                   '            templateUrl: \'' + routeUrl + '\'' + '\n' +
-                   '});';
+        var code = '$routeProvider.when(\'' + route + '\', {' + newLine +
+                    tab + tab + tab + tab + tab + 'templateUrl: \'' + routeUrl + '\',' + newLine +
+                    (controllerName ? 
+                    tab + tab + tab + tab + tab + 'controller: \'' + controllerName + '\',' + newLine + 
+                    tab + tab + tab + tab + tab + 'controllerAs: \'vm\',' + newLine : '') +
+                    tab + tab + tab + tab + '});';
         var marker = exports.ROUTE_MARKER;
-
     }
     exports.addToFile(moduleFile, code, marker);
 

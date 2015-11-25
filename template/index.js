@@ -50,7 +50,7 @@ TemplateGenerator.prototype.files = function files() {
 
     if (this.route && this.route.length > 0) {
         var templateUrl = this.dir + this.name + '.template' +  '.html';
-        cgUtils.injectRoute(this.module.file, this.config.get('uirouter'), this.name, this.route, templateUrl, this);
+        cgUtils.injectRoute(this.module.file, this.config.get('uirouter'), this.name, this.route, templateUrl, false, this);
     }
 
 };

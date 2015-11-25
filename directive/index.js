@@ -38,11 +38,9 @@ DirectiveGenerator.prototype.askFor = function askFor() {
         this.needtemplate = props.needtemplate;
         cgUtils.askForModuleAndDir('directive', this, false, cb); //Tapas: no need to ask for own directory(this.needtemplate)
     }.bind(this));
-
 };
 
 DirectiveGenerator.prototype.files = function files() {
-
     var configName = 'directiveSimpleTemplates';
     var defaultDir = 'templates/simple';
     if (this.needtemplate) {
@@ -54,5 +52,4 @@ DirectiveGenerator.prototype.files = function files() {
     this.htmlPath = this.htmlPath.replace('app/', '');
 
     cgUtils.processTemplates(this.name, this.dir, 'directive', this, defaultDir, configName, this.module);
-
 };
